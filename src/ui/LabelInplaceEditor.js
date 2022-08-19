@@ -32,7 +32,7 @@ draw2d.ui.LabelInplaceEditor = draw2d.ui.LabelEditor.extend(
 
     NAME: "draw2d.ui.LabelInplaceEditor",
 
-    init: function (listener) {
+    init: function (listener, attr) {
       this._super();
 
       // register some default listener and override this with the handover one
@@ -43,7 +43,7 @@ draw2d.ui.LabelInplaceEditor = draw2d.ui.LabelEditor.extend(
         },
         onStart: function () {
         }
-      }, listener);
+      }, listener, attr);
     },
 
     /**
@@ -51,8 +51,9 @@ draw2d.ui.LabelInplaceEditor = draw2d.ui.LabelEditor.extend(
      * Trigger the edit of the label text.
      *
      * @param {draw2d.shape.basic.Label} label the label to edit
+     * @param {attr} attr
      */
-    start: function (label) {
+    start: function (label, attr) {
       this.label = label;
 
       this.commitCallback = this.commit.bind(this);
@@ -65,6 +66,7 @@ draw2d.ui.LabelInplaceEditor = draw2d.ui.LabelEditor.extend(
       // the ENTER and ESC key to commit /cancel the operation
       //
       this.html = $('<input id="inplaceeditor">');
+      this.html.addClass(attr.class);
       this.html.val(label.getText());
       this.html.hide();
 
